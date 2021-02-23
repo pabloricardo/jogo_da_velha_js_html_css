@@ -67,10 +67,10 @@ h1 {
     margin-top: 17px;
 }
 
-/* classe de esconder
+/* classe de esconder */
 .hide {
     display: none !important;
-} */
+}
 
 /* placar */
 #scoreboard-container{
@@ -113,5 +113,4 @@ h1 {
     background-color: #000;
     color: #FFF;
     padding: 20px;
-    display: none;
 }
