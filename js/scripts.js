@@ -1,7 +1,7 @@
 let x = document.querySelector(".x");
 let o = document.querySelector(".o");
 let boxes = document.querySelectorAll(".box");
-let button = document.querySelectorAll("#buttons-container button");
+let buttons = document.querySelectorAll("#buttons-container button");
 let messageContainer = document.querySelector("#message");
 let messageText = document.querySelector("#message p");
 let secondPlayer;
@@ -26,6 +26,10 @@ for (let i = 0; i < boxes.length; i++) {
 
             if (player1 == player2) {
                 player1++;
+                if(secondPlayer == 'ai-player'){
+                    computerPlay();
+                    player2++;
+                }
             } else {
                 player2++;
             }
@@ -36,6 +40,28 @@ for (let i = 0; i < boxes.length; i++) {
     });
 }
 
+
+//Saber se é 2 players ou IA
+for (let i = 0; i < buttons.length; i++) {
+
+    buttons[i].addEventListener("click", function(){
+        
+        secondPlayer = this.getAttribute("id");
+
+        for (let j = 0; j < buttons.length; j++) {
+            buttons[j].style.display = 'none';
+        }
+
+        setTimeout(()=>{
+            let conatiner = document.querySelector('#container')
+            conatiner.classList.remove('hide')
+
+        }, 500)
+    })
+    
+}
+
+//Olhar quem vai jogar
 function checkEl(player1, player2) {
     if (player1 == player2) {
         el = x;
@@ -210,4 +236,26 @@ function declareWinner(winner){
     }
 
 
+}
+
+function computerPlay(){
+    let cloneO = o.cloneNode(true);
+    counter = 0;
+    filled = 0;
+
+    for (let i = 0; i < boxes.length; i++) {
+       let randomNumber = Math.floor(Math.random() * 5);
+       if(boxes[i].childNodes[0] == undefined){
+            if(randomNumber <= 1){
+                boxes[i].appendChild(cloneO);
+                counter++;
+                break;
+            }
+       } else{
+           filled++;
+       }
+    }
+    if(counter == 0 && filled < 9){
+        computerPlay();
+    }
 }
